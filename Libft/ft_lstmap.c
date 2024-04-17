@@ -6,7 +6,7 @@
 /*   By: mfrancis <mfrancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:54:23 by mfrancis          #+#    #+#             */
-/*   Updated: 2024/04/15 17:32:26 by mfrancis         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:18:38 by mfrancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		node = ft_lstnew(f(lst->content));
 		if (!node)
 		{
-			ft_lstclear(&node, (*del));
+			ft_lstclear(&new_list, (*del));
 			return (NULL);
 		}
 		ft_lstadd_back(&new_list, node);
@@ -42,12 +42,12 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
     int *num = (int *)content;
     return (num);
 }
-
 void del_int(void *content)
 {
     free(content);
-}
+} */
 
+/* 
 int main()
 {
     int content1 = 10;
@@ -76,4 +76,4 @@ int main()
 	free(elem2);
 	free(elem3);
     return 0;
-} */
+}  */

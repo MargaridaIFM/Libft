@@ -6,7 +6,7 @@
 /*   By: mfrancis <mfrancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:56:02 by mfrancis          #+#    #+#             */
-/*   Updated: 2024/04/14 18:16:04 by mfrancis         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:14:29 by mfrancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
 /* #include <ctype.h>
 int main()
 {
-	char str[10]= "hello";
+	char *str;
+	str = NULL;
 	printf("my: %lu\n", ft_strlen(str));
 	printf("original: %lu\n\n", strlen(str));
 } */

@@ -6,14 +6,27 @@
 /*   By: mfrancis <mfrancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:55:14 by mfrancis          #+#    #+#             */
-/*   Updated: 2024/04/15 17:29:26 by mfrancis         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:16:09 by mfrancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 // to separete the words
-static void	ft_split_words(char **array, char const *s, char c)
+static void	ft_freedup(char **array)
+{
+	int	idx;
+
+	idx = 0;
+	while (array[idx])
+	{
+		free(array[idx]);
+		idx++;
+	}
+	free(array);
+}
+
+static void	*ft_split_words(char **array, char const *s, char c)
 {
 	char	**word;
 	size_t	word_len;
@@ -30,6 +43,8 @@ static void	ft_split_words(char **array, char const *s, char c)
 			if (s[i + 1] == '\0' || s[i + 1] == c)
 			{
 				*word = ft_substr(s, i - word_len + 1, word_len);
+				if (!(*word))
+					return (ft_freedup(word), NULL);
 				word++;
 				word_len = 0;
 			}
@@ -37,6 +52,7 @@ static void	ft_split_words(char **array, char const *s, char c)
 		i++;
 	}
 	*word = NULL;
+	return (0);
 }
 // To count how many words
 
@@ -81,14 +97,14 @@ char	**ft_split(char const *s, char c)
 }
 /* int main()
 {
-    char const*str_split = "";
-    char sep_split = ' ';
-    char **result_split =   ft_split(str_split, sep_split);
-    for(int i = 0; result_split[i]; i++)
-        printf("Print: %s\n", result_split[i]);
-    for(int j = 0; result_split[j]; j++)
-    {
-        free(result_split[j]);
-    }
-    free(result_split);
+	char const*str_split = "        eu      gosto   de     mim";
+	char sep_split = ' ';
+	char **result_split =   ft_split(str_split, sep_split);
+	for(int i = 0; result_split[i]; i++)
+		printf("Print: %s\n", result_split[i]);
+	for(int j = 0; result_split[j]; j++)
+	{
+		free(result_split[j]);
+	}
+	free(result_split);
 } */

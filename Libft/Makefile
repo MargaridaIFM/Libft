@@ -1,8 +1,7 @@
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
-LIBC = ar rc
-LIBR = ranlib
+LIBC = ar rcs
 RM = rm -f
 SRCS =	ft_isalpha.c \
 		ft_isdigit.c \
@@ -48,20 +47,22 @@ BONUS = ft_lstnew.c \
 		ft_lstclear.c \
 		ft_lstiter.c \
 		ft_lstmap.c \
-		
+
 OBJECTS = ${SRCS:.c=.o}
-BONUS_OBJECTS = ${BONUS:.c=.o}
-${NAME}: ${OBJECTS}
-		${LIBC} ${NAME} ${OBJECTS} 
-		${LIBR} ${NAME}
+
+BONUS_OBJECTS = ${BONUS:.c=.o}	
 
 all: ${NAME}
 
-%.c: %.o
+.c: .o
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
-bonus:  ${BONUS_OBJECTS} ${OBJECTS}
+
+${NAME}: ${OBJECTS}
+		${LIBC} ${NAME} ${OBJECTS}
+
+bonus:  ${NAME} ${BONUS_OBJECTS}
 		${LIBC} ${NAME} ${BONUS_OBJECTS}
-		${LIBR} ${NAME}
+
 clean:
 	${RM} ${OBJECTS} ${BONUS_OBJECTS}
 
