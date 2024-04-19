@@ -6,13 +6,13 @@
 /*   By: mfrancis <mfrancis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:55:14 by mfrancis          #+#    #+#             */
-/*   Updated: 2024/04/17 15:16:09 by mfrancis         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:15:51 by mfrancis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// to separete the words
+//to free the allocated memory if anything goes wrong
 static void	ft_freedup(char **array)
 {
 	int	idx;
@@ -26,7 +26,8 @@ static void	ft_freedup(char **array)
 	free(array);
 }
 
-static void	*ft_split_words(char **array, char const *s, char c)
+// to separete the words
+static char	**ft_split_words(char **array, char const *s, char c)
 {
 	char	**word;
 	size_t	word_len;
@@ -44,7 +45,7 @@ static void	*ft_split_words(char **array, char const *s, char c)
 			{
 				*word = ft_substr(s, i - word_len + 1, word_len);
 				if (!(*word))
-					return (ft_freedup(word), NULL);
+					return (ft_freedup(array), NULL);
 				word++;
 				word_len = 0;
 			}
@@ -52,7 +53,7 @@ static void	*ft_split_words(char **array, char const *s, char c)
 		i++;
 	}
 	*word = NULL;
-	return (0);
+	return (array);
 }
 // To count how many words
 
@@ -63,7 +64,7 @@ static int	ft_count_words(char const *s, char sep)
 
 	counter = 0;
 	idx = 0;
-	if (s[idx] != sep)
+	if (s[idx] != sep && s[idx] != '\0')
 		counter++;
 	while (s[idx])
 	{
@@ -92,14 +93,15 @@ char	**ft_split(char const *s, char c)
 	array = malloc((size + 1) * sizeof(char *));
 	if (!array)
 		return (NULL);
-	ft_split_words(array, s, c);
+	array = ft_split_words(array, s, c);
 	return (array);
 }
 /* int main()
 {
-	char const*str_split = "        eu      gosto   de     mim";
+	char const*str_split = "";
 	char sep_split = ' ';
 	char **result_split =   ft_split(str_split, sep_split);
+	
 	for(int i = 0; result_split[i]; i++)
 		printf("Print: %s\n", result_split[i]);
 	for(int j = 0; result_split[j]; j++)
